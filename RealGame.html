@@ -23,6 +23,8 @@
         const pSIZE = 20;
         var pXspeed = 5;
         var pYspeed = 5;
+        var sans = new Image();
+        sans.src = 'Images/sans.png';
 
         //Background vars
         var backgroundheight = 800;
@@ -43,11 +45,10 @@
         function drawImg(src, x, y, w, h) {
             canvasContext.drawImage(src, x, y, w, h);
         } // end func this is how images are imported
-        
+
             function mainloop(){
-                drawImg(background, 0, 0, backgroundwidth, backgroundheight);
-                (0,0,600,600,'Images/forestbackground'); //background
-                colorRect(pXpos,pYpos,pSIZE,pSIZE,'red'); //player
+                drawImg(background, 0, 0, backgroundwidth, backgroundheight); //background
+                drawImg(sans,pXpos,pYpos,60,90); //player
 
                 PlayerMove();
             }
