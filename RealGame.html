@@ -24,14 +24,13 @@
         var pXspeed = 5;
         var pYspeed = 5;
 
-            function mainloop(){
-                colorRect(0,0,600,600,'black'); //background
-                colorRect(pXpos,pYpos,pSIZE,pSIZE,'red'); //player
+        //Background vars
+        var backgroundheight = 800;
+        var backgroundwidth = 1000;
+        var background = new Image();
+        background.src = 'Images/forestbackground.jpg';
 
-                PlayerMove();
-            }
-
-            //movement vars
+        //movement vars
         const LEFT_KEY = 37;
         const UP_KEY = 38;
         const RIGHT_KEY = 39;
@@ -40,6 +39,18 @@
         var upKeyPressed = false;
         var rightKeyPressed = false;
         var downKeyPressed = false;
+
+        function drawImg(src, x, y, w, h) {
+            canvasContext.drawImage(src, x, y, w, h);
+        } // end func this is how images are imported
+        
+            function mainloop(){
+                drawImg(background, 0, 0, backgroundwidth, backgroundheight);
+                (0,0,600,600,'Images/forestbackground'); //background
+                colorRect(pXpos,pYpos,pSIZE,pSIZE,'red'); //player
+
+                PlayerMove();
+            }
 
             function keyPressed(evt){
             if(evt.keyCode == LEFT_KEY){
