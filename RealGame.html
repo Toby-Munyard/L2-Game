@@ -3,7 +3,7 @@
     <title>Fruit Catcher</title>
 </head>
 <body>
-    <canvas id="gameCanvas" width="600" height="600"></canvas>
+    <canvas id="gameCanvas" width="1000" height="800"></canvas>
     <script>
         var canvas;
         var canvasContext;
@@ -42,6 +42,12 @@
         var rightKeyPressed = false;
         var downKeyPressed = false;
 
+        var userName = '';
+
+        while (userName == '' || userName == null) {
+            userName = prompt('what is your name?');
+        } //creates a prompt when game is launched asking the player's name and will not go away until something is entered
+
         function drawImg(src, x, y, w, h) {
             canvasContext.drawImage(src, x, y, w, h);
         } // end func this is how images are imported
@@ -51,6 +57,7 @@
                 drawImg(sans,pXpos,pYpos,60,90); //player
 
                 PlayerMove();
+
             }
 
             function keyPressed(evt){
@@ -66,7 +73,7 @@
             if(evt.keyCode == DOWN_KEY){
                 downKeyPressed = true;
             }
-        }
+        } //player movement
 
         function keyReleased(evt){
             if(evt.keyCode == LEFT_KEY){
@@ -81,7 +88,7 @@
             if(evt.keyCode == DOWN_KEY){
                 downKeyPressed = false;
             }
-        }
+        } //player movement
 
         function PlayerMove() {
             if (rightKeyPressed) {
@@ -108,7 +115,9 @@
                     pYpos = 0;
                 }
             }
-        }
+        } //player movement
+
+
 
             function colorRect(x,y,w,h,c){
             canvasContext.fillStyle = c;
