@@ -73,7 +73,9 @@
                 if(eYpos > canvas.height){
                     eYpos = 0 - eSIZE;
                     eXpos = Math.floor(Math.random()*(canvas.width - eSIZE));
+                    eYspeed = Math.floor(Math.random() * (12 - 4) + 4);
                 }
+                
             }
 
             function keyPressed(evt){
