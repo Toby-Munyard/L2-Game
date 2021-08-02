@@ -20,17 +20,29 @@
             //player vars
         var pXpos = 0;
         var pYpos = 0;
-        const pSIZE = 20;
+        const pSIZE = 60;
         var pXspeed = 5;
         var pYspeed = 5;
         var sans = new Image();
         sans.src = 'Images/sans.png';
 
+        //enemy vars
         var eXpos = 0;
         var eYpos = 0;
         const eSIZE = 20;
         var eXspeed = 5;
         var eYspeed = 5;
+
+        //health vars
+        var hXpos = 0;
+        var hYpos = 0;
+        const hSIZE = 20;
+        var hXspeed = 5;
+        var hYspeed = 5;
+
+        //scoring vars
+        var score = 0;
+        var health = 3;
 
         //Background vars
         var backgroundheight = 800;
@@ -75,7 +87,13 @@
                     eXpos = Math.floor(Math.random()*(canvas.width - eSIZE));
                     eYspeed = Math.floor(Math.random() * (12 - 4) + 4);
                 }
-                
+
+                if(eYpos + eSIZE > pYpos && eYpos < pYpos + pSIZE && eXpos + eSIZE > pXpos && eXpos < pXpos + pSIZE){
+                    pXpos = 500;
+                    pYpos = canvas.height - pSIZE;
+                    score++;
+                    console.log('Score:' + score);
+                }
             }
 
             function keyPressed(evt){
