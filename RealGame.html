@@ -26,6 +26,12 @@
         var sans = new Image();
         sans.src = 'Images/sans.png';
 
+        var eXpos = 0;
+        var eYpos = 0;
+        const eSIZE = 20;
+        var eXspeed = 5;
+        var eYspeed = 5;
+
         //Background vars
         var backgroundheight = 800;
         var backgroundwidth = 1000;
@@ -55,9 +61,19 @@
             function mainloop(){
                 drawImg(background, 0, 0, backgroundwidth, backgroundheight); //background
                 drawImg(sans,pXpos,pYpos,60,90); //player
+                colorRect(eXpos,eYpos,eSIZE,eSIZE,'red'); //enemy
 
                 PlayerMove();
+                enemyMove();
+            }
 
+            function enemyMove(){
+                eYpos += eYspeed;
+
+                if(eYpos > canvas.height){
+                    eYpos = 0 - eSIZE;
+                    eXpos = Math.floor(Math.random()*(canvas.width - eSIZE));
+                }
             }
 
             function keyPressed(evt){
