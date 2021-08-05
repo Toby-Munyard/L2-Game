@@ -27,11 +27,29 @@
         sans.src = 'Images/sans.png';
 
         //enemy vars
-        var eXpos = 0;
-        var eYpos = 0;
-        const eSIZE = 20;
-        var eXspeed = 5;
-        var eYspeed = 5;
+        var enemies = [];
+
+        function makeEnemy(){
+            var ePos = Math.floor(Math.random() * 3) + 1;
+
+            const eSIZE = 20;
+//          var eXpos = Math.floor(Math.random()*(canvas.width - eSIZE));
+            var eXpos = ePos * canvas.width / 3;
+            var eYpos = 0 - eSIZE;
+            var eXspeed = Math.floor(Math.random() * (4 - 2) + 2);
+            var eYspeed = Math.floor(Math.random() * (12 - 4) + 4);
+
+            var enemy = {
+                eXpos: eXpos,
+                eYpos: eYpos,
+                eSIZE: eSIZE,
+                eXspeed: eXspeed,
+                eYspeed: eYspeed
+            }
+
+            enemies.push(enemy);
+            
+        }
 
         //health vars
         var hXpos = 0;
@@ -43,6 +61,8 @@
         //scoring vars
         var score = 0;
         var health = 3;
+
+        var startingPos = true;
 
         //Background vars
         var backgroundheight = 800;
@@ -77,6 +97,14 @@
 
                 PlayerMove();
                 enemyMove();
+
+                if(startingPos){
+                    for(i=0; i < totalEnemies; i++){
+                    makeEnemy();
+
+                    }
+                    startingPos = false;
+                }
             }
 
             function enemyMove(){
