@@ -28,8 +28,93 @@
 
         //enemy vars
         var enemies = [];
+        var totalEnemies = 10;
+        var startingPos = true;
 
-        function makeEnemy(){
+        //points vars
+        var fruits = [];
+        var totalFruits = 10;
+        var startingPositon = true;
+
+        //scoring vars
+        var score = 0;
+        var health = 3;
+
+        //Background vars
+        var backgroundheight = 800;
+        var backgroundwidth = 1000;
+        var background = new Image();
+        background.src = 'Images/forestbackground.jpg';
+
+        //movement vars
+        const LEFT_KEY = 37;
+        const UP_KEY = 38;
+        const RIGHT_KEY = 39;
+        const DOWN_KEY = 40;
+        var leftKeyPressed = false;
+        var upKeyPressed = false;
+        var rightKeyPressed = false;
+        var downKeyPressed = false;
+ 
+        var userName = '';
+
+        while (userName == '' || userName == null) {
+            userName = prompt('what is your name?');
+        } //creates a prompt when game is launched asking the player's name and will not go away until something is entered
+
+        function drawImg(src, x, y, w, h) {
+            canvasContext.drawImage(src, x, y, w, h);
+        } // end func this is how images are imported
+
+            function mainloop(){
+                drawImg(background, 0, 0, backgroundwidth, backgroundheight); //background
+                drawImg(sans,pXpos,pYpos,60,90); //player
+                // colorRect(eXpos,eYpos,eSIZE,eSIZE,'red'); //enemy
+
+                PlayerMove();
+                enemyMove();
+                drawEnemy();
+                drawFruit();
+                fruitMove();
+
+                if(startingPos){
+                    for(i=0; i < totalEnemies; i++){
+                    makeEnemy();
+                    
+                }
+                for(i=0; i < totalFruits; i++){
+                    makeFruit();
+
+                }
+                    startingPos = false;
+                }
+            //     if(startingPositon){
+            //     startingPosition = false;
+            // }
+            }
+
+            function enemyMove(){
+                enemies.forEach(function(enemy){
+
+                
+                enemy.eYpos += enemy.eYspeed;
+
+                if(enemy.eYpos > canvas.height){
+                    enemy.eYpos = 0 -enemy.eSIZE;
+                    enemy.eXpos = Math.floor(Math.random()*(canvas.width - enemy.eSIZE));
+                    enemy.eYspeed = Math.floor(Math.random() * (12 - 4) + 4);
+                }
+
+                if(enemy.eYpos + enemy.eSIZE > pYpos && enemy.eYpos < pYpos + pSIZE && enemy.eXpos + enemy.eSIZE > pXpos && enemy.eXpos < pXpos + pSIZE){
+                    pXpos = 500;
+                    pYpos = canvas.height - pSIZE;
+                    score++;
+                    console.log('Health:' + health);
+                }
+            });
+        }
+
+            function makeEnemy(){
             var ePos = Math.floor(Math.random() * 3) + 1;
 
             const eSIZE = 20;
@@ -51,78 +136,60 @@
             
         }
 
-        //health vars
-        var hXpos = 0;
-        var hYpos = 0;
-        const hSIZE = 20;
-        var hXspeed = 5;
-        var hYspeed = 5;
+        function drawEnemy(){
+            enemies.forEach(function(enemy, i){
+                colorRect(enemy.eXpos,enemy.eYpos,enemy.eSIZE,enemy.eSIZE,'red'); 
+            });
+        }
 
-        //scoring vars
-        var score = 0;
-        var health = 3;
+        function fruitMove(){
+                fruits.forEach(function(fruit){
 
-        var startingPos = true;
+                
+                fruit.fYpos += fruit.fYspeed;
 
-        //Background vars
-        var backgroundheight = 800;
-        var backgroundwidth = 1000;
-        var background = new Image();
-        background.src = 'Images/forestbackground.jpg';
-
-        //movement vars
-        const LEFT_KEY = 37;
-        const UP_KEY = 38;
-        const RIGHT_KEY = 39;
-        const DOWN_KEY = 40;
-        var leftKeyPressed = false;
-        var upKeyPressed = false;
-        var rightKeyPressed = false;
-        var downKeyPressed = false;
-
-        var userName = '';
-
-        while (userName == '' || userName == null) {
-            userName = prompt('what is your name?');
-        } //creates a prompt when game is launched asking the player's name and will not go away until something is entered
-
-        function drawImg(src, x, y, w, h) {
-            canvasContext.drawImage(src, x, y, w, h);
-        } // end func this is how images are imported
-
-            function mainloop(){
-                drawImg(background, 0, 0, backgroundwidth, backgroundheight); //background
-                drawImg(sans,pXpos,pYpos,60,90); //player
-                colorRect(eXpos,eYpos,eSIZE,eSIZE,'red'); //enemy
-
-                PlayerMove();
-                enemyMove();
-
-                if(startingPos){
-                    for(i=0; i < totalEnemies; i++){
-                    makeEnemy();
-
-                    }
-                    startingPos = false;
-                }
-            }
-
-            function enemyMove(){
-                eYpos += eYspeed;
-
-                if(eYpos > canvas.height){
-                    eYpos = 0 - eSIZE;
-                    eXpos = Math.floor(Math.random()*(canvas.width - eSIZE));
-                    eYspeed = Math.floor(Math.random() * (12 - 4) + 4);
+                if(fruit.fYpos > canvas.height){
+                    fruit.fYpos = 0 -fruit.fSIZE;
+                    fruit.fXpos = Math.floor(Math.random()*(canvas.width - fruit.fSIZE));
+                    fruit.fYspeed = Math.floor(Math.random() * (12 - 4) + 4);
                 }
 
-                if(eYpos + eSIZE > pYpos && eYpos < pYpos + pSIZE && eXpos + eSIZE > pXpos && eXpos < pXpos + pSIZE){
+                if(fruit.fYpos + fruit.fSIZE > pYpos && fruit.fYpos < pYpos + pSIZE && fruit.fXpos + fruit.fSIZE > pXpos && fruit.fXpos < pXpos + pSIZE){
                     pXpos = 500;
                     pYpos = canvas.height - pSIZE;
                     score++;
                     console.log('Score:' + score);
                 }
+            });
+        }
+
+        function makeFruit(){
+            var fPos = Math.floor(Math.random() * 3) + 1;
+
+            const fSIZE = 20;
+//          var eXpos = Math.floor(Math.random()*(canvas.width - eSIZE));
+            var fXpos = fPos * canvas.width / 3;
+            var fYpos = 0 - fSIZE;
+            var fXspeed = Math.floor(Math.random() * (4 - 2) + 2);
+            var fYspeed = Math.floor(Math.random() * (12 - 4) + 4);
+
+            var fruit = {
+                fXpos: fXpos,
+                fYpos: fYpos,
+                fSIZE: fSIZE,
+                fXspeed: fXspeed,
+                fYspeed: fYspeed
             }
+
+            fruits.push(fruit);
+            
+        }
+
+        function drawFruit(){
+            fruits.forEach(function(fruit, i){
+                colorRect(fruit.fXpos,fruit.fYpos,fruit.fSIZE,fruit.fSIZE,'green'); 
+            });
+        }
 
             function keyPressed(evt){
             if(evt.keyCode == LEFT_KEY){
