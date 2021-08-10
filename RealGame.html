@@ -17,7 +17,8 @@
 
                 setInterval(mainloop, 1000 / 50);
             } 
-            //player vars
+
+        //player vars
         var pXpos = 0;
         var pYpos = 0;
         const pSIZE = 60;
@@ -30,11 +31,15 @@
         var enemies = [];
         var totalEnemies = 10;
         var startingPos = true;
+        var monkey = new Image();
+        monkey.src = 'Images/monke.png';
 
         //points vars
         var fruits = [];
         var totalFruits = 10;
         var startingPositon = true;
+        var cherry = new Image();
+        cherry.src = 'Images/cherry.png';
 
         //scoring vars
         var score = 0;
@@ -138,7 +143,7 @@
 
         function drawEnemy(){
             enemies.forEach(function(enemy, i){
-                colorRect(enemy.eXpos,enemy.eYpos,enemy.eSIZE,enemy.eSIZE,'red'); 
+                drawImg(monkey,enemy.eXpos,enemy.eYpos,80,80);
             });
         }
 
@@ -187,7 +192,7 @@
 
         function drawFruit(){
             fruits.forEach(function(fruit, i){
-                colorRect(fruit.fXpos,fruit.fYpos,fruit.fSIZE,fruit.fSIZE,'green'); 
+                drawImg(cherry,fruit.fXpos,fruit.fYpos,80,80);
             });
         }
 
