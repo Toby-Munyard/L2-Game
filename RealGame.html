@@ -34,7 +34,7 @@
         var monkey = new Image();
         monkey.src = 'Images/monke.png';
 
-        //points vars
+        //pickups vars
         var fruits = [];
         var totalFruits = 10;
         var startingPositon = true;
@@ -74,7 +74,6 @@
             function mainloop(){
                 drawImg(background, 0, 0, backgroundwidth, backgroundheight); //background
                 drawImg(sans,pXpos,pYpos,60,90); //player
-                // colorRect(eXpos,eYpos,eSIZE,eSIZE,'red'); //enemy
 
                 PlayerMove();
                 enemyMove();
@@ -93,9 +92,6 @@
                 }
                     startingPos = false;
                 }
-            //     if(startingPositon){
-            //     startingPosition = false;
-            // }
             }
 
             function enemyMove(){
@@ -111,11 +107,21 @@
                 }
 
                 if(enemy.eYpos + enemy.eSIZE > pYpos && enemy.eYpos < pYpos + pSIZE && enemy.eXpos + enemy.eSIZE > pXpos && enemy.eXpos < pXpos + pSIZE){
+                    enemy.eXpos = 0;
+                    enemy.eYpos = 0;
                     pXpos = 500;
                     pYpos = canvas.height - pSIZE;
-                    score++;
                     console.log('Health:' + health);
                 }
+
+                if (enemy.eYpos + enemy.eSIZE > pYpos && enemy.eYpos < pYpos + pSIZE && enemy.eXpos + enemy.eSIZE > pXpos && enemy.eXpos < pXpos + pSIZE) {
+                   
+                    pXpos = canvas.width / 2 - pSIZE / 2;
+                    pYpos = canvas.height * .8;
+                    health--;
+                    console.log('Health:' + health);
+                } // this code finds if the enemies are touching the player then sends the enemies back to the top after they touch the player and removes 1 health from the player
+                
             });
         }
 
