@@ -97,7 +97,6 @@
             function enemyMove(){
                 enemies.forEach(function(enemy){
 
-                
                 enemy.eYpos += enemy.eYspeed;
 
                 if(enemy.eYpos > canvas.height){
@@ -111,17 +110,10 @@
                     enemy.eYpos = 0;
                     pXpos = 500;
                     pYpos = canvas.height - pSIZE;
+                    health--;
                     console.log('Health:' + health);
                 }
 
-                if (enemy.eYpos + enemy.eSIZE > pYpos && enemy.eYpos < pYpos + pSIZE && enemy.eXpos + enemy.eSIZE > pXpos && enemy.eXpos < pXpos + pSIZE) {
-                   
-                    pXpos = canvas.width / 2 - pSIZE / 2;
-                    pYpos = canvas.height * .8;
-                    health--;
-                    console.log('Health:' + health);
-                } // this code finds if the enemies are touching the player then sends the enemies back to the top after they touch the player and removes 1 health from the player
-                
             });
         }
 
@@ -166,6 +158,8 @@
                 }
 
                 if(fruit.fYpos + fruit.fSIZE > pYpos && fruit.fYpos < pYpos + pSIZE && fruit.fXpos + fruit.fSIZE > pXpos && fruit.fXpos < pXpos + pSIZE){
+                    fruit.fXpos = 0;
+                    fruit.fYpos = 0;
                     pXpos = 500;
                     pYpos = canvas.height - pSIZE;
                     score++;
