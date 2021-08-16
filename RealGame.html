@@ -115,8 +115,8 @@
                 }
 
                 if(enemy.eYpos + enemy.eSIZE > pYpos && enemy.eYpos < pYpos + pSIZE && enemy.eXpos + enemy.eSIZE > pXpos && enemy.eXpos < pXpos + pSIZE){
-                    enemy.eXpos = 0;
-                    enemy.eYpos = 0;
+                    enemy.eXpos = Math.floor(Math.random()*(canvas.width - enemy.eSIZE));
+                    enemy.eYpos = -100;
                     pXpos = 500;
                     pYpos = canvas.height - pSIZE;
                     health--;
@@ -167,8 +167,8 @@
                 }
 
                 if(fruit.fYpos + fruit.fSIZE > pYpos && fruit.fYpos < pYpos + pSIZE && fruit.fXpos + fruit.fSIZE > pXpos && fruit.fXpos < pXpos + pSIZE){
-                    fruit.fXpos = 0;
-                    fruit.fYpos = 0;
+                    fruit.fXpos = Math.floor(Math.random()*(canvas.width - fruit.fSIZE));
+                    fruit.fYpos = -100;
                     score++;
                     console.log('Score:' + score);
                 }
