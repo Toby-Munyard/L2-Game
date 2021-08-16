@@ -34,14 +34,14 @@
         var monkey = new Image();
         monkey.src = 'Images/monke.png';
 
-        //pickups vars
+        //pickups/fruits vars
         var fruits = [];
         var totalFruits = 10;
         var startingPositon = true;
         var cherry = new Image();
         cherry.src = 'Images/cherry.png';
 
-        //scoring vars
+        //scoring and health vars
         var score = 0;
         var health = 3;
 
@@ -101,7 +101,7 @@
                 }
                     startingPos = false;
                 }
-            }
+            }//end func contains other funcs and runs them
 
             function enemyMove(){
                 enemies.forEach(function(enemy){
@@ -124,7 +124,7 @@
                 }
 
             });
-        }
+        }//end func moves enemies and respawns them at the top after they hit the player
 
             function makeEnemy(){
             var ePos = Math.floor(Math.random() * 3) + 1;
@@ -142,17 +142,17 @@
                 eSIZE: eSIZE,
                 eXspeed: eXspeed,
                 eYspeed: eYspeed
-            }
+            }//enemy private vars
 
             enemies.push(enemy);
             
-        }
+        }//end func stores spawns and vars for the speed, size and spawn position of the enemies
 
         function drawEnemy(){
             enemies.forEach(function(enemy, i){
                 drawImg(monkey,enemy.eXpos,enemy.eYpos,80,80);
             });
-        }
+        }//end func basic creation of the enemy 
 
         function fruitMove(){
                 fruits.forEach(function(fruit){
@@ -173,7 +173,7 @@
                     console.log('Score:' + score);
                 }
             });
-        }
+        }//end func moves fruit and makes them respawn at the top of the screen at a random position after they hit player
 
         function makeFruit(){
             var fPos = Math.floor(Math.random() * 3) + 1;
@@ -191,17 +191,17 @@
                 fSIZE: fSIZE,
                 fXspeed: fXspeed,
                 fYspeed: fYspeed
-            }
+            }//fruit private vars
 
             fruits.push(fruit);
             
-        }
+        }//end func stores spawns and vars for the speed, size and spawn position of the fruit
 
         function drawFruit(){
             fruits.forEach(function(fruit, i){
                 drawImg(cherry,fruit.fXpos,fruit.fYpos,80,80);
             });
-        }
+        }//end func basic creation of the fruit
 
             function keyPressed(evt){
             if(evt.keyCode == LEFT_KEY){
@@ -216,7 +216,7 @@
             if(evt.keyCode == DOWN_KEY){
                 downKeyPressed = true;
             }
-        } //player movement
+        } //end func player movement
 
         function keyReleased(evt){
             if(evt.keyCode == LEFT_KEY){
@@ -231,7 +231,7 @@
             if(evt.keyCode == DOWN_KEY){
                 downKeyPressed = false;
             }
-        } //player movement
+        } //end func player movement
 
         function PlayerMove() {
             if (rightKeyPressed) {
@@ -258,13 +258,13 @@
                     pYpos = 0;
                 }
             }
-        } //player movement
+        } //end func player movement
 
 
 
             function colorRect(x,y,w,h,c){
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x,y,w,h);
-        }
+        }//end func defines the basic outline of the screen
 </script>
 </body>     
