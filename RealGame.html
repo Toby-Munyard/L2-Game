@@ -67,6 +67,15 @@
             userName = prompt('what is your name?');
         } //creates a prompt when game is launched asking the player's name and will not go away until something is entered
 
+        var difficulty = 'easy';
+        var pass = false;
+        while (pass == false) {
+            difficulty = prompt('What difficulty do you want? easy, medium or hard?', 'easy');
+            if (difficulty == 'easy' || difficulty == 'Easy' || difficulty == 'medium' || difficulty == 'Medium' || difficulty == 'hard' || difficulty == 'Hard') {
+                pass = true;
+            }
+
+        }
         function drawImg(src, x, y, w, h) {
             canvasContext.drawImage(src, x, y, w, h);
         } // end func this is how images are imported
@@ -160,8 +169,6 @@
                 if(fruit.fYpos + fruit.fSIZE > pYpos && fruit.fYpos < pYpos + pSIZE && fruit.fXpos + fruit.fSIZE > pXpos && fruit.fXpos < pXpos + pSIZE){
                     fruit.fXpos = 0;
                     fruit.fYpos = 0;
-                    pXpos = 500;
-                    pYpos = canvas.height - pSIZE;
                     score++;
                     console.log('Score:' + score);
                 }
