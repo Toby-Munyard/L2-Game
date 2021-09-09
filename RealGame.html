@@ -22,8 +22,8 @@
         var pXpos = 0;
         var pYpos = 0;
         const pSIZE = 60;
-        var pXspeed = 5;
-        var pYspeed = 5;
+        var pXspeed = 15;
+        var pYspeed = 15;
         var sans = new Image();
         sans.src = 'Images/sans.png';
 
@@ -53,13 +53,14 @@
 
         //movement vars
         const LEFT_KEY = 37;
-        const UP_KEY = 38;
         const RIGHT_KEY = 39;
-        const DOWN_KEY = 40;
         var leftKeyPressed = false;
-        var upKeyPressed = false;
         var rightKeyPressed = false;
-        var downKeyPressed = false;
+
+        //game ending vars
+        var gameRun = true;
+        var gameEnd = new Image();
+        gameEnd.src = 'Images/gameEnd.jpg';
  
         var userName = '';
 
@@ -80,7 +81,20 @@
             canvasContext.drawImage(src, x, y, w, h);
         } // end func this is how images are imported
 
+         function EndGame(){
+             if (health < 1) {
+                 gameRun = false;
+             }
+            //  if (score > 10) {
+            //      max + 10;
+            //  }
+            //  if (score > 20) {
+            //      max + 20;
+            //  }
+         }
+
             function mainloop(){
+                if (gameRun) {
                 drawImg(background, 0, 0, backgroundwidth, backgroundheight); //background
                 drawImg(sans,pXpos,pYpos,60,90); //player
 
@@ -89,18 +103,24 @@
                 drawEnemy();
                 drawFruit();
                 fruitMove();
+                EndGame();
 
                 if(startingPos){
                     for(i=0; i < totalEnemies; i++){
                     makeEnemy();
                     
-                }
-                for(i=0; i < totalFruits; i++){
-                    makeFruit();
+                    }
+                    for(i=0; i < totalFruits; i++){
+                        makeFruit();
 
-                }
+                    }
                     startingPos = false;
                 }
+             } else {
+                 drawImg(gameEnd, 0, 0, backgroundwidth, backgroundheight);
+                 colorText('game over', 50, 50, '20px Arial', 'red');
+                 colorText(userName + ' your score was ' + score, 50, 100, '20px Arial', 'Red');
+                 }
             }//end func contains other funcs and runs them
 
             function enemyMove(){
@@ -117,7 +137,7 @@
                 if(enemy.eYpos + enemy.eSIZE > pYpos && enemy.eYpos < pYpos + pSIZE && enemy.eXpos + enemy.eSIZE > pXpos && enemy.eXpos < pXpos + pSIZE){
                     enemy.eXpos = Math.floor(Math.random()*(canvas.width - enemy.eSIZE));
                     enemy.eYpos = -100;
-                    pXpos = 500;
+                    pXpos = canvas.width / 2;
                     pYpos = canvas.height - pSIZE;
                     health--;
                     console.log('Health:' + health);
@@ -210,12 +230,6 @@
             if(evt.keyCode == RIGHT_KEY){
                 rightKeyPressed = true;
             }
-            if(evt.keyCode == UP_KEY){
-                upKeyPressed = true;
-            }
-            if(evt.keyCode == DOWN_KEY){
-                downKeyPressed = true;
-            }
         } //end func player movement
 
         function keyReleased(evt){
@@ -224,12 +238,6 @@
             }
             if(evt.keyCode == RIGHT_KEY){
                 rightKeyPressed = false;
-            }
-            if(evt.keyCode == UP_KEY){
-                upKeyPressed = false;
-            }
-            if(evt.keyCode == DOWN_KEY){
-                downKeyPressed = false;
             }
         } //end func player movement
 
@@ -246,18 +254,6 @@
                     pXpos = canvas.width - pSIZE;
                 }
             }
-            if (upKeyPressed) {
-                pYpos -= pYspeed;
-                if (pYpos < 0 - pSIZE) {
-                    pYpos = canvas.height - pSIZE;
-                }
-            }
-            if (downKeyPressed) {
-                pYpos += pYspeed;
-                if (pYpos > canvas.width) {
-                    pYpos = 0;
-                }
-            }
         } //end func player movement
 
 
@@ -266,5 +262,11 @@
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x,y,w,h);
         }//end func defines the basic outline of the screen
+
+        function colorText(msg, x, y, f, c) {
+            canvasContext.fillStyle = c;
+            canvasContext.font = f;
+            canvasContext.fillText(msg, x, y);
+        } // end func Allows text to shown on screen
 </script>
 </body>     
