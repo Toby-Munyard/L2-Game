@@ -19,9 +19,9 @@
             } 
 
         //player vars
-        var pXpos = 0;
-        var pYpos = 0;
-        const pSIZE = 60;
+        var pXpos = 400;
+        var pYpos = 715;
+        const PSIZE = 80;
         var pXspeed = 15;
         var pYspeed = 15;
         var sans = new Image();
@@ -72,11 +72,32 @@
         var pass = false;
         while (pass == false) {
             difficulty = prompt('What difficulty do you want? easy, medium or hard?', 'easy');
-            if (difficulty == 'easy' || difficulty == 'Easy' || difficulty == 'medium' || difficulty == 'Medium' || difficulty == 'hard' || difficulty == 'Hard') {
+            difficulty = difficulty.toLowerCase();//forces capitals to be lower case
+            if (difficulty == 'easy' || difficulty == 'medium' || difficulty == 'hard') {
                 pass = true;
             }
 
         }
+
+        if (difficulty == 'easy') {
+            min = 5;
+            max = 10;
+            // setInterval(mainloop, 1000 / 5);
+            totalEnemies = 10;
+        }
+        if (difficulty == 'medium') {
+            min = 20;
+            max= 30;
+            // setInterval(mainloop, 1000 / 15);
+            totalEnemies = 14;
+        }
+        if (difficulty == 'hard') {
+            min = 50;
+            max = 100;
+            // setInterval(mainloop, 1000 / 20);
+            totalEnemies = 16;
+        } // These ifs control the difficulty, the framerate and number of enemies will increase with the difficulty
+
         function drawImg(src, x, y, w, h) {
             canvasContext.drawImage(src, x, y, w, h);
         } // end func this is how images are imported
@@ -85,12 +106,6 @@
              if (health < 1) {
                  gameRun = false;
              }
-            //  if (score > 10) {
-            //      max + 10;
-            //  }
-            //  if (score > 20) {
-            //      max + 20;
-            //  }
          }
 
             function mainloop(){
@@ -118,8 +133,9 @@
                 }
              } else {
                  drawImg(gameEnd, 0, 0, backgroundwidth, backgroundheight);
-                 colorText('game over', 50, 50, '20px Arial', 'red');
+                 colorText('Game Over!', 50, 50, '20px Arial', 'red');
                  colorText(userName + ' your score was ' + score, 50, 100, '20px Arial', 'Red');
+                 colorText('Reload the page to try again!', 50, 150, '20px Arial', 'red');
                  }
             }//end func contains other funcs and runs them
 
@@ -129,16 +145,16 @@
                 enemy.eYpos += enemy.eYspeed;
 
                 if(enemy.eYpos > canvas.height){
-                    enemy.eYpos = 0 -enemy.eSIZE;
-                    enemy.eXpos = Math.floor(Math.random()*(canvas.width - enemy.eSIZE));
+                    enemy.eYpos = 0 -enemy.ESIZE;
+                    enemy.eXpos = Math.floor(Math.random()*(canvas.width - enemy.ESIZE));
                     enemy.eYspeed = Math.floor(Math.random() * (12 - 4) + 4);
                 }
 
-                if(enemy.eYpos + enemy.eSIZE > pYpos && enemy.eYpos < pYpos + pSIZE && enemy.eXpos + enemy.eSIZE > pXpos && enemy.eXpos < pXpos + pSIZE){
-                    enemy.eXpos = Math.floor(Math.random()*(canvas.width - enemy.eSIZE));
+                if(enemy.eYpos + enemy.ESIZE > pYpos && enemy.eYpos < pYpos + PSIZE && enemy.eXpos + enemy.ESIZE > pXpos && enemy.eXpos < pXpos + PSIZE){
+                    enemy.eXpos = Math.floor(Math.random()*(canvas.width - enemy.ESIZE));
                     enemy.eYpos = -100;
                     pXpos = canvas.width / 2;
-                    pYpos = canvas.height - pSIZE;
+                    pYpos = canvas.height - PSIZE;
                     health--;
                     console.log('Health:' + health);
                 }
@@ -149,17 +165,17 @@
             function makeEnemy(){
             var ePos = Math.floor(Math.random() * 3) + 1;
 
-            const eSIZE = 20;
-//          var eXpos = Math.floor(Math.random()*(canvas.width - eSIZE));
+            const ESIZE = 15;
+//          var eXpos = Math.floor(Math.random()*(canvas.width - ESIZE));
             var eXpos = ePos * canvas.width / 3;
-            var eYpos = 0 - eSIZE;
-            var eXspeed = Math.floor(Math.random() * (4 - 2) + 2);
-            var eYspeed = Math.floor(Math.random() * (12 - 4) + 4);
+            var eYpos = 0 - ESIZE;
+            var eXspeed = Math.floor(Math.random() * (max - min) + min);
+            var eYspeed = Math.floor(Math.random() * (max - min) + min);
 
             var enemy = {
                 eXpos: eXpos,
                 eYpos: eYpos,
-                eSIZE: eSIZE,
+                ESIZE: ESIZE,
                 eXspeed: eXspeed,
                 eYspeed: eYspeed
             }//enemy private vars
@@ -181,13 +197,13 @@
                 fruit.fYpos += fruit.fYspeed;
 
                 if(fruit.fYpos > canvas.height){
-                    fruit.fYpos = 0 -fruit.fSIZE;
-                    fruit.fXpos = Math.floor(Math.random()*(canvas.width - fruit.fSIZE));
+                    fruit.fYpos = 0 -fruit.FSIZE;
+                    fruit.fXpos = Math.floor(Math.random()*(canvas.width - fruit.FSIZE));
                     fruit.fYspeed = Math.floor(Math.random() * (12 - 4) + 4);
                 }
 
-                if(fruit.fYpos + fruit.fSIZE > pYpos && fruit.fYpos < pYpos + pSIZE && fruit.fXpos + fruit.fSIZE > pXpos && fruit.fXpos < pXpos + pSIZE){
-                    fruit.fXpos = Math.floor(Math.random()*(canvas.width - fruit.fSIZE));
+                if(fruit.fYpos + fruit.FSIZE > pYpos && fruit.fYpos < pYpos + PSIZE && fruit.fXpos + fruit.FSIZE > pXpos && fruit.fXpos < pXpos + PSIZE){
+                    fruit.fXpos = Math.floor(Math.random()*(canvas.width - fruit.FSIZE));
                     fruit.fYpos = -100;
                     score++;
                     console.log('Score:' + score);
@@ -198,17 +214,17 @@
         function makeFruit(){
             var fPos = Math.floor(Math.random() * 3) + 1;
 
-            const fSIZE = 20;
-//          var eXpos = Math.floor(Math.random()*(canvas.width - eSIZE));
+            const FSIZE = 20;
+//          var eXpos = Math.floor(Math.random()*(canvas.width - ESIZE));
             var fXpos = fPos * canvas.width / 3;
-            var fYpos = 0 - fSIZE;
+            var fYpos = 0 - FSIZE;
             var fXspeed = Math.floor(Math.random() * (4 - 2) + 2);
             var fYspeed = Math.floor(Math.random() * (12 - 4) + 4);
 
             var fruit = {
                 fXpos: fXpos,
                 fYpos: fYpos,
-                fSIZE: fSIZE,
+                FSIZE: FSIZE,
                 fXspeed: fXspeed,
                 fYspeed: fYspeed
             }//fruit private vars
@@ -250,8 +266,8 @@
             }
             if (leftKeyPressed) {
                 pXpos -= pXspeed;
-                if (pXpos < 0 - pSIZE) {
-                    pXpos = canvas.width - pSIZE;
+                if (pXpos < 0 - PSIZE) {
+                    pXpos = canvas.width - PSIZE;
                 }
             }
         } //end func player movement
