@@ -21,7 +21,7 @@
         //player vars
         var pXpos = 400;
         var pYpos = 715;
-        const PSIZE = 80;
+        const PSIZE = 50;
         var pXspeed = 15;
         var pYspeed = 15;
         var sans = new Image();
@@ -154,7 +154,7 @@
                     enemy.eXpos = Math.floor(Math.random()*(canvas.width - enemy.ESIZE));
                     enemy.eYpos = -100;
                     pXpos = canvas.width / 2;
-                    pYpos = canvas.height - PSIZE;
+                    pYpos = canvas.height - PSIZE * 1.75;
                     health--;
                     console.log('Health:' + health);
                 }
