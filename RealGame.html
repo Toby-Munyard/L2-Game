@@ -24,8 +24,8 @@
         const PSIZE = 50;
         var pXspeed = 15;
         var pYspeed = 15;
-        var sans = new Image();
-        sans.src = 'Images/sans.png';
+        var basket = new Image();
+        basket.src = 'Images/basket.png';
 
         //enemy vars
         var enemies = [];
@@ -96,7 +96,7 @@
             max = 100;
             // setInterval(mainloop, 1000 / 20);
             totalEnemies = 16;
-        } // These ifs control the difficulty, the framerate and number of enemies will increase with the difficulty
+        } // These ifs control the difficulty, the number of enemies will increase with the difficulty
 
         function drawImg(src, x, y, w, h) {
             canvasContext.drawImage(src, x, y, w, h);
@@ -111,7 +111,7 @@
             function mainloop(){
                 if (gameRun) {
                 drawImg(background, 0, 0, backgroundwidth, backgroundheight); //background
-                drawImg(sans,pXpos,pYpos,60,90); //player
+                drawImg(basket,pXpos,pYpos,60,90); //player
 
                 PlayerMove();
                 enemyMove();
@@ -144,19 +144,20 @@
 
                 enemy.eYpos += enemy.eYspeed;
 
-                if(enemy.eYpos > canvas.height){
+                if(enemy.eYpos > canvas.height){  // enemy out of bottom of canvas 
                     enemy.eYpos = 0 -enemy.ESIZE;
                     enemy.eXpos = Math.floor(Math.random()*(canvas.width - enemy.ESIZE));
                     enemy.eYspeed = Math.floor(Math.random() * (12 - 4) + 4);
                 }
 
                 if(enemy.eYpos + enemy.ESIZE > pYpos && enemy.eYpos < pYpos + PSIZE && enemy.eXpos + enemy.ESIZE > pXpos && enemy.eXpos < pXpos + PSIZE){
+                    // player respawns to center of canvas after enemy collides with player
                     enemy.eXpos = Math.floor(Math.random()*(canvas.width - enemy.ESIZE));
                     enemy.eYpos = -100;
                     pXpos = canvas.width / 2;
                     pYpos = canvas.height - PSIZE * 1.75;
                     health--;
-                    console.log('Health:' + health);
+                    console.log('Health:' + health); 
                 }
 
             });
@@ -196,13 +197,14 @@
                 
                 fruit.fYpos += fruit.fYspeed;
 
-                if(fruit.fYpos > canvas.height){
+                if(fruit.fYpos > canvas.height){ //fruit out of bottom of canvas
                     fruit.fYpos = 0 -fruit.FSIZE;
                     fruit.fXpos = Math.floor(Math.random()*(canvas.width - fruit.FSIZE));
                     fruit.fYspeed = Math.floor(Math.random() * (12 - 4) + 4);
                 }
 
                 if(fruit.fYpos + fruit.FSIZE > pYpos && fruit.fYpos < pYpos + PSIZE && fruit.fXpos + fruit.FSIZE > pXpos && fruit.fXpos < pXpos + PSIZE){
+                    //if fruit collides with player score increases by one and fruit is sent back to top of canvas
                     fruit.fXpos = Math.floor(Math.random()*(canvas.width - fruit.FSIZE));
                     fruit.fYpos = -100;
                     score++;
