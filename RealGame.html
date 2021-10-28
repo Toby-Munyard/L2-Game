@@ -130,7 +130,9 @@
 
                     }
                     startingPos = false;
-                }
+                };
+                colorText(userName + "'s score is " + score, 15, 20, '20px Arial', 'Lime')
+                colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
              } else {
                  drawImg(gameEnd, 0, 0, backgroundwidth, backgroundheight);
                  colorText('Game Over!', 50, 50, '20px Arial', 'red');
