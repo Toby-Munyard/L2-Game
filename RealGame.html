@@ -133,6 +133,7 @@
                 };
                 colorText(userName + "'s score is " + score, 15, 20, '20px Arial', 'Lime')
                 colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
+                colorText('Arrow Keys to move! Catch those bananas!', 15, 60, '20px Arial', 'Lime')
              } else {
                  drawImg(gameEnd, 0, 0, backgroundwidth, backgroundheight);
                  colorText('Game Over!', 50, 50, '20px Arial', 'red');
@@ -168,7 +169,7 @@
             function makeEnemy(){
             var ePos = Math.floor(Math.random() * 3) + 1;
 
-            const ESIZE = 15;
+            const ESIZE = 20;
 //          var eXpos = Math.floor(Math.random()*(canvas.width - ESIZE));
             var eXpos = ePos * canvas.width / 3;
             var eYpos = 0 - ESIZE;
