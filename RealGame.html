@@ -156,7 +156,7 @@
                 if(enemy.eYpos + enemy.ESIZE > pYpos && enemy.eYpos < pYpos + PSIZE && enemy.eXpos + enemy.ESIZE > pXpos && enemy.eXpos < pXpos + PSIZE){
                     // player respawns to center of canvas after enemy collides with player
                     enemy.eXpos = Math.floor(Math.random()*(canvas.width - enemy.ESIZE));
-                    enemy.eYpos = -100;
+                    enemy.eYpos = canvas.height + 100;
                     pXpos = canvas.width / 2;
                     pYpos = canvas.height - PSIZE * 1.75;
                     health--;
@@ -209,7 +209,7 @@
                 if(fruit.fYpos + fruit.FSIZE > pYpos && fruit.fYpos < pYpos + PSIZE && fruit.fXpos + fruit.FSIZE > pXpos && fruit.fXpos < pXpos + PSIZE){
                     //if fruit collides with player score increases by one and fruit is sent back to top of canvas
                     fruit.fXpos = Math.floor(Math.random()*(canvas.width - fruit.FSIZE));
-                    fruit.fYpos = -100;
+                    fruit.fYpos = canvas.height + 100;
                     score++;
                     console.log('Score:' + score);
                 }
