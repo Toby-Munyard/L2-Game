@@ -82,19 +82,16 @@
         if (difficulty == 'easy') {
             min = 5;
             max = 10;
-            // setInterval(mainloop, 1000 / 5);
             totalEnemies = 10;
         }
         if (difficulty == 'medium') {
             min = 20;
             max= 30;
-            // setInterval(mainloop, 1000 / 15);
             totalEnemies = 14;
         }
         if (difficulty == 'hard') {
             min = 50;
             max = 100;
-            // setInterval(mainloop, 1000 / 20);
             totalEnemies = 16;
         } // These ifs control the difficulty, the number of enemies will increase with the difficulty
 
@@ -220,7 +217,6 @@
             var fPos = Math.floor(Math.random() * 3) + 1;
 
             const FSIZE = 20;
-//          var eXpos = Math.floor(Math.random()*(canvas.width - ESIZE));
             var fXpos = fPos * canvas.width / 3;
             var fYpos = 0 - FSIZE;
             var fXspeed = Math.floor(Math.random() * (4 - 2) + 2);
