@@ -1,7 +1,9 @@
 <!doctype html>
+
 <head>
     <title>Fruit Catcher</title>
 </head>
+
 <body>
     <canvas id="gameCanvas" width="1000" height="800"></canvas>
     <script>
@@ -9,14 +11,14 @@
         var canvasContext;
 
         window.onload = function () {
-                canvas = document.getElementById('gameCanvas');
-                canvasContext = canvas.getContext('2d');
+            canvas = document.getElementById('gameCanvas');
+            canvasContext = canvas.getContext('2d');
 
-                document.addEventListener('keydown', keyPressed);
-                document.addEventListener('keyup', keyReleased);
+            document.addEventListener('keydown', keyPressed);
+            document.addEventListener('keyup', keyReleased);
 
-                setInterval(mainloop, 1000 / 50);
-            } 
+            setInterval(mainloop, 1000 / 50);
+        }
 
         //player vars
         var pXpos = 400;
@@ -61,7 +63,7 @@
         var gameRun = true;
         var gameEnd = new Image();
         gameEnd.src = 'Images/gameEnd.jpg';
- 
+
         var userName = '';
 
         while (userName == '' || userName == null) {
@@ -72,7 +74,7 @@
         var pass = false;
         while (pass == false) {
             difficulty = prompt('What difficulty do you want? easy, medium or hard?', 'easy');
-            difficulty = difficulty.toLowerCase();//forces capitals to be lower case
+            difficulty = difficulty.toLowerCase(); //forces capitals to be lower case
             if (difficulty == 'easy' || difficulty == 'medium' || difficulty == 'hard') {
                 pass = true;
             }
@@ -86,7 +88,7 @@
         }
         if (difficulty == 'medium') {
             min = 20;
-            max= 30;
+            max = 30;
             totalEnemies = 14;
         }
         if (difficulty == 'hard') {
@@ -99,16 +101,16 @@
             canvasContext.drawImage(src, x, y, w, h);
         } // end func this is how images are imported
 
-         function EndGame(){
-             if (health < 1) {
-                 gameRun = false;
-             }
-         }
+        function EndGame() {
+            if (health < 1) {
+                gameRun = false;
+            }
+        }
 
-            function mainloop(){
-                if (gameRun) {
+        function mainloop() {
+            if (gameRun) {
                 drawImg(background, 0, 0, backgroundwidth, backgroundheight); //background
-                drawImg(basket,pXpos,pYpos,60,90); //player
+                drawImg(basket, pXpos, pYpos, 60, 90); //player
 
                 PlayerMove();
                 enemyMove();
@@ -117,12 +119,12 @@
                 fruitMove();
                 EndGame();
 
-                if(startingPos){
-                    for(i=0; i < totalEnemies; i++){
-                    makeEnemy();
-                    
+                if (startingPos) {
+                    for (i = 0; i < totalEnemies; i++) {
+                        makeEnemy();
+
                     }
-                    for(i=0; i < totalFruits; i++){
+                    for (i = 0; i < totalFruits; i++) {
                         makeFruit();
 
                     }
@@ -131,43 +133,42 @@
                 colorText(userName + "'s score is " + score, 15, 20, '20px Arial', 'Lime')
                 colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
                 colorText('Arrow Keys to move! Catch those bananas!', 15, 60, '20px Arial', 'Lime')
-             } else {
-                 drawImg(gameEnd, 0, 0, backgroundwidth, backgroundheight);
-                 colorText('Game Over!', 50, 50, '20px Arial', 'red');
-                 colorText(userName + ' your score was ' + score, 50, 100, '20px Arial', 'Red');
-                 colorText('Reload the page to try again!', 50, 150, '20px Arial', 'red');
-                 }
-            }//end func contains other funcs and runs them
+            } else {
+                drawImg(gameEnd, 0, 0, backgroundwidth, backgroundheight);
+                colorText('Game Over!', 50, 50, '20px Arial', 'red');
+                colorText(userName + ' your score was ' + score, 50, 100, '20px Arial', 'Red');
+                colorText('Reload the page to try again!', 50, 150, '20px Arial', 'red');
+            }
+        } //end func contains other funcs and runs them
 
-            function enemyMove(){
-                enemies.forEach(function(enemy){
+        function enemyMove() {
+            enemies.forEach(function (enemy) {
 
                 enemy.eYpos += enemy.eYspeed;
 
-                if(enemy.eYpos > canvas.height){  // enemy out of bottom of canvas 
-                    enemy.eYpos = 0 -enemy.ESIZE;
-                    enemy.eXpos = Math.floor(Math.random()*(canvas.width - enemy.ESIZE));
+                if (enemy.eYpos > canvas.height) { // enemy out of bottom of canvas 
+                    enemy.eYpos = 0 - enemy.ESIZE;
+                    enemy.eXpos = Math.floor(Math.random() * (canvas.width - enemy.ESIZE));
                     enemy.eYspeed = Math.floor(Math.random() * (12 - 4) + 4);
                 }
 
-                if(enemy.eYpos + enemy.ESIZE > pYpos && enemy.eYpos < pYpos + PSIZE && enemy.eXpos + enemy.ESIZE > pXpos && enemy.eXpos < pXpos + PSIZE){
+                if (enemy.eYpos + enemy.ESIZE > pYpos && enemy.eYpos < pYpos + PSIZE && enemy.eXpos + enemy
+                    .ESIZE > pXpos && enemy.eXpos < pXpos + PSIZE) {
                     // player respawns to center of canvas after enemy collides with player
-                    enemy.eXpos = Math.floor(Math.random()*(canvas.width - enemy.ESIZE));
+                    enemy.eXpos = Math.floor(Math.random() * (canvas.width - enemy.ESIZE));
                     enemy.eYpos = canvas.height + 100;
                     pXpos = canvas.width / 2;
                     pYpos = canvas.height - PSIZE * 1.75;
                     health--;
-                    console.log('Health:' + health); 
+                    console.log('Health:' + health);
                 }
 
             });
-        }//end func moves enemies and respawns them at the top after they hit the player
+        } //end func moves enemies and respawns them at the top after they hit the player
 
-            function makeEnemy(){
+        function makeEnemy() {
             var ePos = Math.floor(Math.random() * 3) + 1;
-
             const ESIZE = 20;
-//          var eXpos = Math.floor(Math.random()*(canvas.width - ESIZE));
             var eXpos = ePos * canvas.width / 3;
             var eYpos = 0 - ESIZE;
             var eXspeed = Math.floor(Math.random() * (max - min) + min);
@@ -179,43 +180,43 @@
                 ESIZE: ESIZE,
                 eXspeed: eXspeed,
                 eYspeed: eYspeed
-            }//enemy private vars
+            } //enemy private vars
 
             enemies.push(enemy);
-            
-        }//end func stores spawns and vars for the speed, size and spawn position of the enemies
 
-        function drawEnemy(){
-            enemies.forEach(function(enemy, i){
-                drawImg(monkey,enemy.eXpos,enemy.eYpos,80,80);
+        } //end func stores spawns and vars for the speed, size and spawn position of the enemies
+
+        function drawEnemy() {
+            enemies.forEach(function (enemy, i) {
+                drawImg(monkey, enemy.eXpos, enemy.eYpos, 80, 80);
             });
-        }//end func basic creation of the enemy 
+        } //end func basic creation of the enemy 
 
-        function fruitMove(){
-                fruits.forEach(function(fruit){
+        function fruitMove() {
+            fruits.forEach(function (fruit) {
 
-                
+
                 fruit.fYpos += fruit.fYspeed;
 
-                if(fruit.fYpos > canvas.height){ //fruit out of bottom of canvas
-                    fruit.fYpos = 0 -fruit.FSIZE;
-                    fruit.fXpos = Math.floor(Math.random()*(canvas.width - fruit.FSIZE));
+                if (fruit.fYpos > canvas.height) { //fruit out of bottom of canvas
+                    fruit.fYpos = 0 - fruit.FSIZE;
+                    fruit.fXpos = Math.floor(Math.random() * (canvas.width - fruit.FSIZE));
                     fruit.fYspeed = Math.floor(Math.random() * (12 - 4) + 4);
                 }
 
-                if(fruit.fYpos + fruit.FSIZE > pYpos && fruit.fYpos < pYpos + PSIZE && fruit.fXpos + fruit.FSIZE > pXpos && fruit.fXpos < pXpos + PSIZE){
+                if (fruit.fYpos + fruit.FSIZE > pYpos && fruit.fYpos < pYpos + PSIZE && fruit.fXpos + fruit
+                    .FSIZE > pXpos && fruit.fXpos < pXpos + PSIZE) {
                     //if fruit collides with player score increases by one and fruit is sent back to top of canvas
-                    fruit.fXpos = Math.floor(Math.random()*(canvas.width - fruit.FSIZE));
+                    fruit.fXpos = Math.floor(Math.random() * (canvas.width - fruit.FSIZE));
                     fruit.fYpos = canvas.height + 100;
                     score++;
                     console.log('Score:' + score);
                 }
             });
-        }//end func moves fruit and makes them respawn at the top of the screen at a random position after they hit player
+        } //end func moves fruit and makes them respawn at the top of the screen at a random position after they hit player
 
-        function makeFruit(){
+        function makeFruit() {
             var fPos = Math.floor(Math.random() * 3) + 1;
-
             const FSIZE = 20;
             var fXpos = fPos * canvas.width / 3;
             var fYpos = 0 - FSIZE;
@@ -228,32 +229,32 @@
                 FSIZE: FSIZE,
                 fXspeed: fXspeed,
                 fYspeed: fYspeed
-            }//fruit private vars
+            } //fruit private vars
 
             fruits.push(fruit);
-            
-        }//end func stores spawns and vars for the speed, size and spawn position of the fruit
 
-        function drawFruit(){
-            fruits.forEach(function(fruit, i){
-                drawImg(cherry,fruit.fXpos,fruit.fYpos,80,80);
+        } //end func stores spawns and vars for the speed, size and spawn position of the fruit
+
+        function drawFruit() {
+            fruits.forEach(function (fruit, i) {
+                drawImg(cherry, fruit.fXpos, fruit.fYpos, 80, 80);
             });
-        }//end func basic creation of the fruit
+        } //end func basic creation of the fruit
 
-            function keyPressed(evt){
-            if(evt.keyCode == LEFT_KEY){
+        function keyPressed(evt) {
+            if (evt.keyCode == LEFT_KEY) {
                 leftKeyPressed = true;
             }
-            if(evt.keyCode == RIGHT_KEY){
+            if (evt.keyCode == RIGHT_KEY) {
                 rightKeyPressed = true;
             }
         } //end func player movement
 
-        function keyReleased(evt){
-            if(evt.keyCode == LEFT_KEY){
+        function keyReleased(evt) {
+            if (evt.keyCode == LEFT_KEY) {
                 leftKeyPressed = false;
             }
-            if(evt.keyCode == RIGHT_KEY){
+            if (evt.keyCode == RIGHT_KEY) {
                 rightKeyPressed = false;
             }
         } //end func player movement
@@ -275,15 +276,15 @@
 
 
 
-            function colorRect(x,y,w,h,c){
+        function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
-            canvasContext.fillRect(x,y,w,h);
-        }//end func defines the basic outline of the screen
+            canvasContext.fillRect(x, y, w, h);
+        } //end func defines the basic outline of the screen
 
         function colorText(msg, x, y, f, c) {
             canvasContext.fillStyle = c;
             canvasContext.font = f;
             canvasContext.fillText(msg, x, y);
         } // end func Allows text to shown on screen
-</script>
-</body>     
+    </script>
+</body>
